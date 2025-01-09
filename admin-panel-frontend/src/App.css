@@ -1,0 +1,92 @@
+/* App.css */
+
+/* General Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 20px;
+  padding: 100px;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* Full viewport height */
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+form h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+input, textarea, button {
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Post List Styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #f1f1f1;
+  border-left: 4px solid #4CAF50;
+  border-radius: 5px;
+}
+
+li h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+li p {
+  margin: 5px 0 0;
+  color: #555;
+}
