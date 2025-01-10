@@ -14,7 +14,7 @@ function AdminPanel() {
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token on logout
-    navigate("/login"); // Redirect to login
+    navigate("/"); // Redirect to login
   };
 
   return (
