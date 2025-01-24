@@ -1,5 +1,6 @@
 {
     "require": {
-        "laravel/sanctum": "^2.15"
+        "laravel/sanctum": "^2.15",
+        "tymon/jwt-auth": "^1.0"
     }
 }
