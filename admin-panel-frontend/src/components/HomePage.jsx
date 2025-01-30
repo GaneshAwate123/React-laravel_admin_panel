@@ -1,146 +1,3 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";  // Add this import
-// import "../homePage.css";
-
-// function HomePage() {
-//   const [activeTab, setActiveTab] = useState("login");
-//   const [loginData, setLoginData] = useState({ email: "", password: "" });
-//   const [registerData, setRegisterData] = useState({
-//     name: "",
-//     email: "",
-//     password: "",
-//   });
-//   const navigate = useNavigate();  // Declare the navigate hook
-
-//   const handleTabSwitch = (tab) => setActiveTab(tab);
-
-//   // Login functionality
-//   const handleLoginSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post("http://127.0.0.1:8000/api/login", loginData);
-      
-//       // Save token to localStorage
-//       localStorage.setItem("token", response.data.access_token);
-
-//       // Set the authorization header for future requests
-//       axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.access_token}`;
-
-//       // alert("Login successful");
-//       console.log("Redirecting to admin page..."); 
-//       // Redirect to the admin panel using useNavigate (no full page reload)
-//       // navigate("/admin");
-//       window.location.href = "/admin"; 
-//     } catch (error) {
-//       alert("Invalid login credentials");
-//     }
-//   };
-
-//   // Register functionality
-//   const handleRegisterSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await axios.post("http://127.0.0.1:8000/api/register", registerData);
-//       alert("Registration successful! You can now log in.");
-//       setActiveTab("login"); // Switch to login tab after registration
-//     } catch (error) {
-//       alert("Registration failed. Please check your details.");
-//     }
-//   };
-
-//   return (
-//     <div className="home-page">
-//       <div className="form-container">
-//         <div className="tabs">
-//           <button
-//             className={activeTab === "login" ? "active" : ""}
-//             onClick={() => handleTabSwitch("login")}
-//           >
-//             Login
-//           </button>
-//           <button
-//             className={activeTab === "register" ? "active" : ""}
-//             onClick={() => handleTabSwitch("register")}
-//           >
-//             Register
-//           </button>
-//         </div>
-
-//         <div className="form-content">
-//           {activeTab === "login" && (
-//             <form onSubmit={handleLoginSubmit}>
-//               <h2>Login</h2>
-//               <input
-//                 type="email"
-//                 placeholder="Email"
-//                 value={loginData.email}
-//                 onChange={(e) =>
-//                   setLoginData({ ...loginData, email: e.target.value })
-//                 }
-//                 required
-//               />
-//               <input
-//                 type="password"
-//                 placeholder="Password"
-//                 value={loginData.password}
-//                 onChange={(e) =>
-//                   setLoginData({ ...loginData, password: e.target.value })
-//                 }
-//                 required
-//               />
-//               <a
-//                 href="#"
-//                 onClick={() => navigate("/forgot-password")}
-//                 className="forgot-password-link"
-//               >
-//                 Forgot Password?
-//               </a>
-//               <button type="submit">Login</button>
-//             </form>
-//           )}
-
-//           {activeTab === "register" && (
-//             <form onSubmit={handleRegisterSubmit}>
-//               <h2>Register</h2>
-//               <input
-//                 type="text"
-//                 placeholder="Name"
-//                 value={registerData.name}
-//                 onChange={(e) =>
-//                   setRegisterData({ ...registerData, name: e.target.value })
-//                 }
-//                 required
-//               />
-//               <input
-//                 type="email"
-//                 placeholder="Email"
-//                 value={registerData.email}
-//                 onChange={(e) =>
-//                   setRegisterData({ ...registerData, email: e.target.value })
-//                 }
-//                 required
-//               />
-//               <input
-//                 type="password"
-//                 placeholder="Password"
-//                 value={registerData.password}
-//                 onChange={(e) =>
-//                   setRegisterData({ ...registerData, password: e.target.value })
-//                 }
-//                 required
-//               />
-//               <button type="submit">Register</button>
-//             </form>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default HomePage;
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -173,33 +30,43 @@ function HomePage() {
   };
 
   const validateField = (name, value) => {
-    if (!value) {
-      return `Please enter the ${name}.`;
-    }
+    const errorMessages = [];
 
-    if (regexPatterns[name] && !regexPatterns[name].test(value)) {
+    if (!value) {
+      errorMessages.push(`Please enter the ${name}.`);
+    } else if (regexPatterns[name] && !regexPatterns[name].test(value)) {
       switch (name) {
         case "name":
-          return "Name must be 2-50 characters long and contain only letters and spaces.";
+          errorMessages.push(
+            "Name must be 2-50 characters long and contain only letters and spaces."
+          );
+          break;
         case "email":
-          return "Invalid email format.";
+          errorMessages.push("Invalid email format.");
+          break;
         case "password":
-          return "Password must be at least 8 characters long and include a letter and a number.";
+          errorMessages.push(
+            "Password must be at least 8 characters long and include a letter and a number."
+          );
+          break;
         default:
-          return null;
+          break;
       }
     }
 
-    return null;
+    return errorMessages;
   };
 
-  const validateAllFields = (data, type) => {
+  const validateAllFields = (data) => {
     const newErrors = {};
     for (const key in data) {
-      newErrors[key] = validateField(key, data[key]);
+      const fieldErrors = validateField(key, data[key]);
+      if (fieldErrors.length > 0) {
+        newErrors[key] = fieldErrors;
+      }
     }
     setErrors(newErrors);
-    return Object.values(newErrors).every((err) => err === null);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e, type) => {
@@ -210,13 +77,17 @@ function HomePage() {
       setRegisterData({ ...registerData, [name]: value });
     }
 
-    const errorMessage = validateField(name, value);
-    setErrors({ ...errors, [name]: errorMessage });
+    // Update individual field error immediately
+    const fieldErrors = validateField(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: fieldErrors,
+    }));
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    if (!validateAllFields(loginData, "login")) {
+    if (!validateAllFields(loginData)) {
       return;
     }
 
@@ -226,7 +97,6 @@ function HomePage() {
       localStorage.setItem("token", response.data.access_token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.access_token}`;
       alert("Login successful");
-      // navigate("/admin");
       window.location.href = "/admin";
     } catch (error) {
       alert("Invalid login credentials.");
@@ -235,7 +105,7 @@ function HomePage() {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    if (!validateAllFields(registerData, "register")) {
+    if (!validateAllFields(registerData)) {
       return;
     }
 
@@ -271,13 +141,18 @@ function HomePage() {
             <form onSubmit={handleLoginSubmit}>
               <h2>Login</h2>
               <input
-                type="email"
-                name="email"
+                type="text"
+                name="email"  
                 placeholder="Email"
                 value={loginData.email}
                 onChange={(e) => handleInputChange(e, "login")}
               />
-              {errors.email && <p className="error-text">{errors.email}</p>}
+              {errors.email &&
+                errors.email.map((err, idx) => (
+                  <p key={idx} className="error-text">
+                    {err}
+                  </p>
+                ))}
               <input
                 type="password"
                 name="password"
@@ -285,7 +160,12 @@ function HomePage() {
                 value={loginData.password}
                 onChange={(e) => handleInputChange(e, "login")}
               />
-              {errors.password && <p className="error-text">{errors.password}</p>}
+              {errors.password &&
+                errors.password.map((err, idx) => (
+                  <p key={idx} className="error-text">
+                    {err}
+                  </p>
+                ))}
               <a
                 href="#"
                 onClick={() => navigate("/forgot-password")}
@@ -307,7 +187,12 @@ function HomePage() {
                 value={registerData.name}
                 onChange={(e) => handleInputChange(e, "register")}
               />
-              {errors.name && <p className="error-text">{errors.name}</p>}
+              {errors.name &&
+                errors.name.map((err, idx) => (
+                  <p key={idx} className="error-text">
+                    {err}
+                  </p>
+                ))}
               <input
                 type="email"
                 name="email"
@@ -315,7 +200,12 @@ function HomePage() {
                 value={registerData.email}
                 onChange={(e) => handleInputChange(e, "register")}
               />
-              {errors.email && <p className="error-text">{errors.email}</p>}
+              {errors.email &&
+                errors.email.map((err, idx) => (
+                  <p key={idx} className="error-text">
+                    {err}
+                  </p>
+                ))}
               <input
                 type="password"
                 name="password"
@@ -323,7 +213,12 @@ function HomePage() {
                 value={registerData.password}
                 onChange={(e) => handleInputChange(e, "register")}
               />
-              {errors.password && <p className="error-text">{errors.password}</p>}
+              {errors.password &&
+                errors.password.map((err, idx) => (
+                  <p key={idx} className="error-text">
+                    {err}
+                  </p>
+                ))}
               <button type="submit">Register</button>
             </form>
           )}

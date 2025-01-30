@@ -1,0 +1,360 @@
+/* .post-page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .post-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+  
+  .post-card h3 {
+    margin: 0 0 10px;
+  }
+  
+  .post-card p {
+    color: #555;
+  }
+   */
+
+   /* General container styling */
+/* General Page Styling */
+/* .post-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;  Allows scrolling
+  padding: 20px;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto;  Enables vertical scrolling
+} */
+/* 
+Ensure full-page scroll
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; Prevents horizontal scroll
+} */
+
+/* Header styles */
+/* .post-page-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+} */
+
+/* Grid container for posts */
+/* .post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  overflow-y: auto; 
+} */
+
+/* Individual post card */
+/* .post-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+} */
+
+/* Hover effect for cards */
+/* .post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+} */
+
+/* Title of the post */
+/* .post-card h3 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 10px;
+  word-break: break-word;
+} */
+
+/* Content of the post */
+/* .post-card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  flex-grow: 1;
+  word-break: break-word;
+} */
+
+/* Ensure footer stays at bottom */
+/* .footer {
+  width: 100%;
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  margin-top: auto;
+} */
+
+/* For responsiveness */
+/* @media (max-width: 768px) {
+  .post-page-container h1 {
+    font-size: 2rem;
+  }
+
+  .post-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .post-card p {
+    font-size: 0.95rem;
+  }
+} */
+
+/* === Reset and Global Styles === */
+/* === Global Styles === */
+/* === Global Styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* .container {
+  overflow-y : scroll;
+} */
+
+body, html {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* === Container === */
+.post-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+  padding-top: 500px; /* Add space for fixed header */
+  position: relative;
+}
+
+/* === Header Section (Fixed) === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #007bff;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 60px; /* Height for fixed header */
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+  color: #ffd700;
+}
+
+.logout-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #cc0000;
+}
+
+/* === Main Content (Below Header) === */
+.main-content {
+  padding: 40px 20px;
+  text-align: center;
+  flex-grow: 1;
+  margin-top: 100px; /* Add space below header */
+  overflow-y: auto;
+}
+
+/* === Post Grid === */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* === Individual Post Card === */
+.post-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: left;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.post-card h3 {
+  font-size: 1.4rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.post-card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.no-posts {
+  font-size: 1.2rem;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* === Testimonials Section === */
+.testimonials {
+  background-color: #fff;
+  padding: 50px 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.testimonial-box {
+  background-color: #f9f9f9;
+  border-left: 5px solid #007bff;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  font-style: italic;
+}
+
+.testimonial-box span {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Footer Section === */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 15px 20px;
+  margin-top: auto;
+  position: relative;
+  width: 100%;
+}
+
+.footer p {
+  margin-bottom: 5px;
+}
+
+.social-icons a {
+  color: #ffd700;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.social-icons a:hover {
+  color: white;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .main-content h1 {
+    font-size: 2rem;
+  }
+
+  .post-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .post-card p {
+    font-size: 0.95rem;
+  }
+
+  .testimonial-box {
+    max-width: 90%;
+  }
+}

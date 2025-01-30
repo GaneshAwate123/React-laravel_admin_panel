@@ -51,6 +51,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import AdminPanel from "./components/AdminPanel";
 import ForgotPassword from "./components/ForgotPassword"
+import PostPage from "./components/PostPage"
 import "./App.css";
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         element={isAuthenticated ? <AdminPanel setIsAuthenticated={setIsAuthenticated} /> : <Navigate to="/" />}
       />
       <Route path="/forgot-password" element={<ForgotPassword />} />//
+      <Route path="/postsPage" element={<PostPage />} />
 
     </Routes>
   );

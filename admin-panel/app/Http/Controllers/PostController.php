@@ -16,7 +16,7 @@ class PostController extends Controller
     {
         return response()->json(Post::all(), 200);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *

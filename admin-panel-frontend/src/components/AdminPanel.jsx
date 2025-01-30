@@ -1,24 +1,34 @@
-// import React, { useState } from "react";
+// import React, { useState, useEffect } from "react";
 // import AddPost from "./AddPost";
 // import PostList from "./PostList";
 // import { useNavigate } from "react-router-dom";
 // import "../AdminPanel.css";
 
 // function AdminPanel() {
+//   const [isAddPostVisible, setIsAddPostVisible] = useState(false);
 //   const [refresh, setRefresh] = useState(false);
 //   const navigate = useNavigate();
 
-//   const handlePostAdded = () => {
+//   useEffect(() => {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//       navigate("/"); // Redirect to login if not authenticated
+//     }
+//   }, [navigate]);
+
+//   const handleToggleAddPost = () => {
+//     setIsAddPostVisible(!isAddPostVisible); // Show/Hide Add Post form
+//   };
+
+//   const handlePostUpdated = () => {
 //     setRefresh(!refresh); // Trigger refresh for PostList
+//     setIsAddPostVisible(false); // Close Add Post form after adding
 //   };
 
 //   const handleLogout = () => {
-//     console.log("Logging out..."); // Debug log
-//     localStorage.removeItem("token"); // Clear token
-//     navigate("/"); // Redirect to home page
-//     window.location.reload(); // Force reload to clear cached state
+//     localStorage.removeItem("token");
+//     window.location.href = "/";
 //   };
-  
 
 //   return (
 //     <div className="container">
@@ -26,8 +36,11 @@
 //         <h1>Admin Panel</h1>
 //         <button onClick={handleLogout}>Logout</button>
 //       </div>
-//       <AddPost onPostAdded={handlePostAdded} />
-//       <PostList key={refresh} />
+//       <button className="add-post-btn" onClick={handleToggleAddPost}>
+//         {isAddPostVisible ? "Cancel" : "Add Post"}
+//       </button>
+//       {isAddPostVisible && <AddPost onPostAdded={handlePostUpdated} />}
+//       <PostList refreshKey={refresh} />
 //     </div>
 //   );
 // }
@@ -41,34 +54,47 @@ import { useNavigate } from "react-router-dom";
 import "../AdminPanel.css";
 
 function AdminPanel() {
+  const [isAddPostVisible, setIsAddPostVisible] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the JWT token is available in localStorage
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/"); // If no token, redirect to the home (login) page
+      navigate("/"); // Redirect to login if not authenticated
     }
   }, [navigate]);
 
-  const handlePostAdded = () => {
-    setRefresh(!refresh); // Trigger refresh for PostList
+  const handleToggleAddPost = () => {
+    setIsAddPostVisible(!isAddPostVisible);
+  };
+
+  const handlePostUpdated = () => {
+    setRefresh(!refresh);
+    setIsAddPostVisible(false); // Close Add Post form after adding
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear token from localStorage
-    window.location.href = "/";  // Redirect to home page (login page)
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   return (
-    <div className="container">
-      <div className="admin-header">
-        <h1>Admin Panel</h1>
-        <button onClick={handleLogout}>Logout</button>
+    <div className="admin-panel">
+      <header className="admin-header">
+        <h2>Dashboard</h2>
+        <button onClick={handleLogout} className="logout-btn">Logout</button>
+        <button onClick={() => window.location.href = "/postsPage"}>View Posts Page</button>
+      </header>
+      <div className="content">
+        <div className="add-post-section">
+          <button className="toggle-btn" onClick={handleToggleAddPost}>
+            {isAddPostVisible ? "Cancel" : "Add Post"}
+          </button>
+          {isAddPostVisible && <AddPost onPostAdded={handlePostUpdated} />}
+        </div>
+        <PostList refreshKey={refresh} />
       </div>
-      <AddPost onPostAdded={handlePostAdded} />
-      <PostList key={refresh} />
     </div>
   );
 }

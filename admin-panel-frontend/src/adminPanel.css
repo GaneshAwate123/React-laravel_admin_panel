@@ -1,4 +1,4 @@
-/* AdminPanel.css */
+/* AdminPanel.css
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -21,4 +21,178 @@
   button:hover {
     background-color: #0056b3;
   }
-  
+   */
+
+   /* AdminPanel.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1b1b48;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.admin-header h1 {
+  margin: 0;
+}
+
+.logout-btn {
+  background-color: #ff4d4d;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #ff1a1a;
+}
+
+.content {
+  flex: 1;
+  margin-top: 20px;
+}
+
+.add-post-section {
+  margin-bottom: 20px;
+}
+
+.add-post-form {
+  margin-top: 20px;
+}
+
+.post-list {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.post-table th,
+.post-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.post-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.post-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.post-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+button {
+  background-color: #23873e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #23873e;
+}
+
+.post-table {
+  width: 100%; /* Make the table occupy the full width of the container */
+  min-width: 800px; /* Set a minimum width for the table */
+  border-collapse: collapse; /* Ensure clean borders */
+  table-layout: fixed; /* Distribute column widths evenly 
+}
+
+.post-table th,
+.post-table td {
+  border: 1px solid #ccc; /* Add a border to cells */
+  padding: 10px; /* Add padding for better readability */
+  text-align: left; /* Align text to the left */
+  word-wrap: break-word; /* Wrap text in case of long content */
+}
+
+.post-table th {
+  background-color: #f4f4f4; /* Light background for table headers */
+}
+
+.post-table td:first-child,
+.post-table th:first-child {
+  width: 5%; /* Fixed width for the serial number column */
+  text-align: center;
+}
+
+.post-table td:nth-child(2),
+.post-table th:nth-child(2) {
+  width: 15%; /* Reduce width for Title column */
+}
+
+.post-table td:nth-child(3),
+.post-table th:nth-child(3) {
+  width: 60%; /* Increase width for Content column */
+}
+
+.post-table td:last-child,
+.post-table th:last-child {
+  width: 20%; /* Reduce width for Actions column */
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .post-table {
+    font-size: 14px; /* Reduce font size for smaller screens */
+  }
+
+  .post-table th,
+  .post-table td {
+    padding: 8px; /* Adjust padding */
+  }
+}
+
+.post-list-container {
+  width: 100%;
+  max-width: 100%; /* Ensure the table doesn't overflow the container */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  max-height: 400px; /* Set a fixed height */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
